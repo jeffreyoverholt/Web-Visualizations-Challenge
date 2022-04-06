@@ -8,7 +8,6 @@ function charts(sample) {
     var values = result.samples_values
     var id = result.otu_ids
     console.log(id)
-    
 
 
     // Reference Greek Gods filtering module (Week 14, Day 2, Module 6)
@@ -34,18 +33,34 @@ function charts(sample) {
         title: "Top 10 OTU's",
       };
       
-      // Render the plot to the div tag with id "plot"
-      // Note that we use `traceData` here, not `data`
       Plotly.newPlot("bar", traceData, layout);
 
     // Bubble Chart
+    // https://plotly.com/javascript/bubble-charts/
+
     let trace2 = {
+      y: sample_values,
+      x: id, 
+      mode: 'markers',
+      text: otu_labels,
+      marker: {
+        color: id,
+        opacity: [1, 0.8, 0.6, 0.4],
+        size: sample_values
+      }
+    };
 
+    let bubbleData = [trace2];
 
+    let bubbleLayout = {
+      title: 'Bubble Chart of Bacteria Samples',
+      showlegend: false,
+      height: 600,
+      width: 1200,
+    };
 
+    Plotly.newPlot("bubble", bubbleData, bubbleLayout);
 
-
-    }
   });
 }
 
@@ -62,18 +77,12 @@ function init() {
       dropdownMenu.append('option').text(name);
     })
 
-    //why is this option
     var result = names[0];
     
   buildMetadata(result)
   charts(result)
   });
 }
-
-
-
-
-// 
 
 function optionChanged(value) {
   console.log(value);
