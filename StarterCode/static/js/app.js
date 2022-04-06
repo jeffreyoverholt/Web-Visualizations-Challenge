@@ -7,8 +7,14 @@ function charts(sample) {
     console.log(result);
     var values = result.samples_values
     // https://attacomsian.com/blog/java-convert-integer-to-string
-    var id = result.otu_ids.toString()
+    var id = result.otu_ids
     console.log(id)
+
+    // Reference Greek Gods filtering module (Week 14, Day 2, Module 6)
+    filteredResult = values.filter(0, 10);
+    filteredId = id.filter(0, 10);
+    filteredId = filteredId.map(x => 'otu' + x)
+    filteredResult.reverse();
 
     // Bar Chart
     let trace1 = {
