@@ -6,33 +6,32 @@ function charts(sample) {
     var result = resultArray[0];  
     console.log(result);
     var values = result.samples_values
-    // https://attacomsian.com/blog/java-convert-integer-to-string
     var id = result.otu_ids
     console.log(id)
+    
+
 
     // Reference Greek Gods filtering module (Week 14, Day 2, Module 6)
-    filteredResult = values.filter(0, 10);
-    filteredId = id.filter(0, 10);
-    filteredId = filteredId.map(x => 'otu' + x)
-    filteredResult.reverse();
+    // Used Ask BCS for Help with filtering
+    // https://nuvirtdatapt1-ice5461.slack.com/archives/C03AE2DLSAF
+    var yticks = id.slice(0, 10).map(otuID => `OTU ${otuID}`).reverse();
+    var sample_values = result.sample_values;
+    var otu_labels = result.otu_labels;
 
     // Bar Chart
     let trace1 = {
-        x: values,
-        y: id,
-        // text: reversedData.map(object => object.greekName),
-        // name: "Greek",
+        y: yticks,
+        x: sample_values.slice(0, 10).reverse(),
+        text: otu_labels.slice(0, 10).reverse(),
         type: "bar",
         orientation: "h"
       };
       
-      // Data array
-      // `data` has already been defined, so we must choose a new name here:
       let traceData = [trace1];
       
       // Apply a title to the layout
       let layout = {
-        title: "TBD",
+        title: "Top 10 OTU's",
       };
       
       // Render the plot to the div tag with id "plot"
